@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Prediction</title>
+<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Success Prediction</h1>
+    <form action="/predict" method="post">
+        <!-- Numerical features -->
+        <label for="First_Term_Gpa">First Term GPA:</label>
+        <input type="text" name="First_Term_Gpa" required><br>
+
+        <label for="Second_Term_Gpa">Second Term GPA:</label>
+        <input type="text" name="Second_Term_Gpa" required><br>
+
+        <label for="High_School_Average_Mark">High School Average Mark:</label>
+        <input type="text" name="High_School_Average_Mark" required><br>
+
+        <label for="Math_Score">Math Score:</label>
+        <input type="text" name="Math_Score" required><br>
+
+        <!-- Categorical features -->
+        {% for column in config.CATEGORICAL_COLUMNS %}
+            <label for="{{ column }}">{{ column }}:</label>
+            <input type="text" name="{{ column }}" required><br>
+        {% endfor %}
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_result %}
+        <h2>Prediction Result: {{ prediction_result }}</h2>
+    {% endif %}
+</body>
+</html>
+
